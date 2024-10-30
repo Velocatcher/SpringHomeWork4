@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <style>
+        .parent {
+            width: 100%;
+            background-color: lightgray;
+            padding: 20px;
+        }
+
+        button {
+            display: block;
+            margin: 0 auto;
+            padding: 10px 20px;
+        }
+    </style>
+    <meta charset="UTF-8">
+    <title>Users</title>
+</head>
+<body style="background-color: #80daeb">
+<div th:switch="${users}">
+    <h2 th:case="null">No users found!</h2>
+    <div th:case="*">
+        <h2 style="text-align:center">List of users</h2>
+
+        <table style="margin: 0 auto; border: solid 1px blue;">
+            <thead>
+            <tr>
+                <th> USER ID     </th>
+                <th> FIRSTNAME     </th>
+                <th> LASTNAME     </th>
+                <th> AGE     </th>
+                <th> EMAIL</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <br>
+            <tr th:each="user : ${users}">
+                <td th:text="${user.id}"></td>
+                <td th:text="${user.firstName}"></td>
+                <td th:text="${user.lastName}"></td>
+                <td th:text="${user.age}"></td>
+                <td th:text="${user.email}"></td>
+                <td><a th:href="@{user-update/{id}(id=${user.id})}">Edit</a></td>
+                <td><a th:href="@{user-delete/{id}(id=${user.id})}">Delete</a></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <br>
+    <form action="/user-create" target="_blank">
+        <button type="submit">Create user</button>
+    </form>
+</div>
+</body>
+</html>
